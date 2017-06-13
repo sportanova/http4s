@@ -62,6 +62,15 @@ class MessageSpec extends Http4sSpec {
         Request(Method.GET).addCookie("token", "value").headers.get("Cookie".ci).map(_.value) must beSome("token=value")
       }
     }
+
+    "update pathInfo" should {
+      "update pathInfo after Request uri is changed" in {
+        val originalReq = Request(uri = Uri(path = "/path1"))
+        originalReq.pathInfo mustEqual "/path1"
+        val updatedReq = originalReq.copy(uri = Uri(path = "/path2"))
+        updatedReq.pathInfo mustEqual "/path2"
+      }
+    }
   }
 
   "Message" should {

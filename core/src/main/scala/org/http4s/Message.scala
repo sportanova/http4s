@@ -129,6 +129,23 @@ final case class Request(
 
   type Self = Request
 
+  def copy(
+    method: Method = this.method,
+    uri: Uri = this.uri,
+    httpVersion: HttpVersion = this.httpVersion,
+    headers: Headers = this.headers,
+    body: EntityBody = this.body,
+    attributes: AttributeMap = this.attributes
+  ): Request =
+    Request (
+      method = method,
+      uri = uri,
+      httpVersion = httpVersion,
+      headers = headers,
+      body = body,
+      attributes = attributes
+    )
+
   override protected def change(body: EntityBody, headers: Headers, attributes: AttributeMap): Self =
     copy(body = body, headers = headers, attributes = attributes)
 
